@@ -5,7 +5,7 @@
     <link rel="preload" as="font" type="font/woff2" href="./resources/abcsans-regular.woff2" crossorigin>
     <meta charset="utf-8">
     <title>North Black Range fire</title>
-    <meta name="description" content="Perimetre of the bushfire at the .">
+    <meta name="description" content="Perimeter of the North Black Range bushfire.">
     <meta name="keywords" content="tallaganda, north, black, range, bushfire, fire, nsw, rfs">
     <meta name="author" content="Markus Mannheim">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,10 +17,13 @@
   </head>
   <body>
     <!-- Initial page layout -->
-    <div id="map"></div>
+    <div id="base">
+      <div id="map"></div>
+      <div id="label"></div>
+    </div>
     <script>
       // load electorates
-      d3.json("./fire.geojson", function(error, data) {
+      d3.json("fire.geojson", function(error, data) {
         if (error) throw error;
         fireData = data;
         // set up MapBox engine
@@ -54,6 +57,9 @@
         svgGroup = svg
           .append("g")
             .attr("id", "svgGroup");
+        // label set-up
+        label = d3.select("#label")
+          .html("<strong>updated:</strong> " + fireData.features[0].properties.updated);
         // map calculations
         projection = calcProjection();
         path = d3.geoPath();
@@ -68,10 +74,10 @@
         let bboxWidth = document.body.getBoundingClientRect().width;
         let bboxHeight = document.body.getBoundingClientRect().height;
         map.fitBounds(d3.geoBounds(fireData), {
-          padding: { top: bboxHeight * .4, bottom: bboxHeight * .4, left: bboxWidth * .4, right: bboxWidth * .4 }
+          padding: { top: bboxHeight * .35, bottom: bboxHeight * .35, left: bboxWidth * .35, right: bboxWidth * .35 }
         });
         // initial fade-in
-        d3.select("body").transition()
+        d3.select("body, #label").transition()
           .duration(1000)
           .style("opacity", 1);
         // re-render SVGs upon movement
