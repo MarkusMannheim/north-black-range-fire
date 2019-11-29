@@ -23,7 +23,7 @@
     </div>
     <script>
       // load electorates
-      d3.json("fire.geojson", function(error, data) {
+      d3.json("fire.geojson?randomKey=" + Math.floor(Math.random() * 900) + 100, function(error, data) {
         if (error) throw error;
         fireData = data;
         // set up MapBox engine
