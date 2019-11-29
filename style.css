@@ -31,15 +31,15 @@ body {
   height: 100%;
 }
 #label {
-  background-color: rgba(11, 11, 11, .25);
+  background-color: rgba(11, 11, 11, .4);
+  border-radius: 5px;
   padding: 5px;
   color: white;
   font-size: .75rem;
-  box-shadow: 2px 2px 5px rgba(255, 255, 255, .25);
   position: absolute;
   pointer-events: none;
-  left: 0px;
-  bottom: 0px;
+  left: 15px;
+  bottom: 15px;
 }
 .fire {
   fill: rgba(255, 97, 0, .5);
