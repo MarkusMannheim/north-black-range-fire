@@ -4,7 +4,7 @@
   font-style: normal;
   font-weight: 400;
   src: local("ABC Sans"), local("ABC-regular"),
-       url("../fonts/abcsans-regular.woff2") format("woff2"), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url("./abcsans-regular.woff2") format("woff2"), /* Chrome 26+, Opera 23+, Firefox 39+ */
 }
 :root {
   font-size: 1em;
