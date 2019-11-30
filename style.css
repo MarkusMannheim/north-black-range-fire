@@ -58,4 +58,5 @@ body {
   font-size: .75rem;
   position: absolute;
   display: none;
+  pointer-events: none;
 }
