@@ -45,6 +45,10 @@
           }))
           .addControl(new mapboxgl.AttributionControl({
             compact: true
+          }))
+          .addControl(new mapboxgl.ScaleControl({
+            position: "bottom-left",
+            unit: "metric"
           }));
         map.on("load", function() {
           let attribution = d3.select(".mapboxgl-ctrl-attrib-inner");

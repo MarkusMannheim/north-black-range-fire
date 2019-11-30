@@ -39,7 +39,7 @@ body {
   position: absolute;
   pointer-events: none;
   left: 10px;
-  bottom: 10px;
+  top: 10px;
 }
 .fire {
   fill: rgba(255, 97, 0, .5);
