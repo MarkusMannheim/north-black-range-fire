@@ -2,7 +2,7 @@
 <html>
   <head>
     <!-- fonts first! -->
-    <link rel="preload" as="font" type="font/woff2" href="./resources/abcsans-regular.woff2" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="./abcsans-regular.woff2" crossorigin>
     <meta charset="utf-8">
     <title>North Black Range fire</title>
     <meta name="description" content="Perimeter of the North Black Range bushfire.">
@@ -20,10 +20,11 @@
     <div id="base">
       <div id="map"></div>
       <div id="label"></div>
+      <div id="tip"></div>
     </div>
     <script>
       // load electorates
-      d3.json("fire.geojson?randomKey=" + Math.floor(Math.random() * 900) + 100, function(error, data) {
+      d3.json("fire.geojson", function(error, data) {
         if (error) throw error;
         fireData = data;
         // set up MapBox engine
@@ -60,6 +61,8 @@
         // label set-up
         label = d3.select("#label")
           .html("<strong>updated:</strong> " + fireData.features[0].properties.updated);
+        tip = d3.select("#tip")
+          .text(d3.format(",.0f")(fireData.features[0].properties.size) + " hectares");
         // map calculations
         projection = calcProjection();
         path = d3.geoPath();
@@ -69,7 +72,10 @@
           .selectAll(".fire")
             .data(fireData.features)
           .enter().append("path")
-            .attr("class", "fire");
+            .attr("class", "fire")
+            .on("mouseover", hoverOver)
+            .on("mouseout", hoverOut)
+            .on("mousemove", moveTip);
         // set bounds
         let bboxWidth = document.body.getBoundingClientRect().width;
         let bboxHeight = document.body.getBoundingClientRect().height;
@@ -102,6 +108,30 @@
           .center([center.lng, center.lat])
           .translate([bbox.width / 2, bbox.height / 2])
           .scale(scale);
+      }
+      // hover over areas
+      function hoverOver(d) {
+        tip.style("display", "none")
+          .style("left", "0px")
+          .style("top", "0px")
+          .style("display", "block");
+        tipBbox = document.querySelector("#tip").getBoundingClientRect();
+        moveTip();
+      }
+      // hover over areas
+      function hoverOut() {
+        tip.style("display", "none");
+      }
+      // hover over areas
+      function moveTip() {
+        if (tip.style("display") == "block") {
+          let mouse = d3.mouse(document.body);
+          tip.style("display", "none");
+          let bbox = document.body.getBoundingClientRect();
+          tip.style("left", mouse[0] < bbox.width - tipBbox.width - 10 ? mouse[0] + "px" : (bbox.width - tipBbox.width - 10) + "px")
+            .style("top", mouse[1] < bbox.height - tipBbox.height - 10 ? mouse[1] + "px" : (bbox.height - tipBbox.height - 10) + "px")
+            .style("display", "block");
+        }
       }
     </script>
   </body>
