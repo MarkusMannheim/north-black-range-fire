@@ -122,18 +122,18 @@
         tipBbox = document.querySelector("#tip").getBoundingClientRect();
         moveTip();
       }
-      // hover over areas
+      // hover out of area
       function hoverOut() {
         tip.style("display", "none");
       }
-      // hover over areas
+      // move tip with mouse
       function moveTip() {
         if (tip.style("display") == "block") {
           let mouse = d3.mouse(document.body);
           tip.style("display", "none");
           let bbox = document.body.getBoundingClientRect();
-          tip.style("left", mouse[0] < bbox.width - tipBbox.width - 10 ? mouse[0] + "px" : (bbox.width - tipBbox.width - 10) + "px")
-            .style("top", mouse[1] < bbox.height - tipBbox.height - 10 ? mouse[1] + "px" : (bbox.height - tipBbox.height - 10) + "px")
+          tip.style("left", mouse[0] < bbox.width - tipBbox.width - 20 ? mouse[0] + 10 + "px" : (bbox.width - tipBbox.width - 10) + "px")
+            .style("top", mouse[1] < bbox.height - tipBbox.height - 20 ? mouse[1] + 10 + "px" : (bbox.height - tipBbox.height - 10) + "px")
             .style("display", "block");
         }
       }
